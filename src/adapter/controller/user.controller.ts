@@ -15,9 +15,10 @@ export class UserController implements IUserController {
 		return this.userInteractor.ListUser();
 	}
 
-	show(ctx: Context): User {
+	show(ctx: Context): UserResponse {
 		const id = parseInt(ctx.params.id);
-		return this.userInteractor.GetUserById(id);
+		const findUser = this.userInteractor.GetUserById(id);
+		return UserResponse.toViewModel(findUser);
 	}
 
 	create(ctx: Context): User {
