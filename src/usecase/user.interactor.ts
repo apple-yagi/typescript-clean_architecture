@@ -10,19 +10,19 @@ export class UserInteractor implements IUserInteractor {
 		this.userRepository = r;
 	}
 
-	ListUser() {
+	ListUser(): User[] {
 		return this.userRepository.FindAll();
 	}
 
-	GetUserById(id: number) {
+	GetUserById(id: number): User {
 		return this.userRepository.FindById(id);
 	}
 
-	Create(u: CreateUserDto) {
+	Create(u: CreateUserDto): User {
 		return this.userRepository.Create(u);
 	}
 
-	Delete(id: number) {
+	Delete(id: number): User {
 		return this.userRepository.Delete(id);
 	}
 }
