@@ -3,8 +3,8 @@ import { Context } from "../../interface/context";
 import { UserResponse } from "../../view-model/user.vm";
 
 export abstract class IUserController {
-	index: () => User[];
-	show: (ctx: Context) => UserResponse;
-	create: (ctx: Context) => User;
-	delete: (ctx: Context) => User;
+  index: () => Promise<User[]>;
+  show: (ctx: Context) => Promise<UserResponse>;
+  create: (ctx: Context) => Promise<User>;
+  delete: (ctx: Context) => Promise<number>;
 }

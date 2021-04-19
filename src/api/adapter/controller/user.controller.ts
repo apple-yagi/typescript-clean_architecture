@@ -6,28 +6,28 @@ import { CreateUserDto } from "./dto/craete-user.dto";
 import { IUserController } from "./interfaces/userController.interface";
 
 export class UserController implements IUserController {
-	private userInteractor: IUserInteractor;
-	constructor(i: IUserInteractor) {
-		this.userInteractor = i;
-	}
+  private userInteractor: IUserInteractor;
+  constructor(i: IUserInteractor) {
+    this.userInteractor = i;
+  }
 
-	index(): User[] {
-		return this.userInteractor.ListUser();
-	}
+  index(): Promise<User[]> {
+    return this.userInteractor.ListUser();
+  }
 
-	show(ctx: Context): UserResponse {
-		const id = parseInt(ctx.params.id);
-		const findUser = this.userInteractor.GetUserById(id);
-		return UserResponse.toViewModel(findUser);
-	}
+  async show(ctx: Context): Promise<UserResponse> {
+    const id = parseInt(ctx.params.id);
+    const findUser = await this.userInteractor.GetUserById(id);
+    return UserResponse.toViewModel(findUser);
+  }
 
-	create(ctx: Context): User {
-		const createUserDto = new CreateUserDto(ctx.body);
-		return this.userInteractor.Create(createUserDto);
-	}
+  create(ctx: Context): Promise<User> {
+    const createUserDto = new CreateUserDto(ctx.body);
+    return this.userInteractor.Create(createUserDto);
+  }
 
-	delete(ctx: Context): User {
-		const id = parseInt(ctx.params.id);
-		return this.userInteractor.Delete(id);
-	}
+  delete(ctx: Context): Promise<number> {
+    const id = parseInt(ctx.params.id);
+    return this.userInteractor.Delete(id);
+  }
 }

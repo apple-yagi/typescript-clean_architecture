@@ -2,7 +2,7 @@ import { IUserRepository } from "../interfaces/userRepository.interface";
 import { User } from "../../entity/user";
 import { CreateUserDto } from "../../adapter/controller/dto/craete-user.dto";
 
-export class UserRepository implements IUserRepository {
+export class InmemoryUserRepository implements IUserRepository {
   private users: User[] = [
     {
       id: 1,
@@ -12,11 +12,11 @@ export class UserRepository implements IUserRepository {
   ];
 
   FindAll() {
-    return this.users;
+    return Promise.resolve(this.users);
   }
 
   FindById(id: number) {
-    return this.users.find(user => user.id == id);
+    return Promise.resolve(this.users.find(user => user.id == id));
   }
 
   Create(u: CreateUserDto) {
@@ -26,15 +26,14 @@ export class UserRepository implements IUserRepository {
       email: u.email
     };
     this.users.push(createUser);
-    return createUser;
+    return Promise.resolve(createUser);
   }
 
   Delete(id: number) {
     const targetIndex = this.users.findIndex(user => user.id === id);
-    const deleteUser = this.users[targetIndex];
     this.users.splice(targetIndex, 1);
 
-    return deleteUser;
+    return Promise.resolve(id);
   }
 
   private getRandomInt() {
