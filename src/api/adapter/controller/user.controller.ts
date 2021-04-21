@@ -34,7 +34,8 @@ export class UserController implements IUserController {
 	): Promise<Response> {
 		try {
 			const id = parseInt(req.params.id);
-			if (isNaN(id)) throw new CustomError(400, `Invalid params id: ${id}`);
+			if (isNaN(id))
+				throw new CustomError(400, `Invalid params id: ${req.params.id}`);
 
 			const findUser = await this.userInteractor.GetUserById(id);
 			return res
@@ -72,7 +73,8 @@ export class UserController implements IUserController {
 	): Promise<Response> {
 		try {
 			const id = parseInt(req.params.id);
-			if (isNaN(id)) throw new CustomError(400, `Invalid params id: ${id}`);
+			if (isNaN(id))
+				throw new CustomError(400, `Invalid params id: ${req.params.id}`);
 
 			await this.userInteractor.Delete(id);
 			return res.status(204).json({ statusCode: 204 });
