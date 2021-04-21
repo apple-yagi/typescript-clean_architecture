@@ -1,14 +1,18 @@
+import { IsEmail, Length, validate } from "class-validator";
+
 export class CreateUserDto {
+	@Length(4, 20)
 	name: string;
+
+	@IsEmail()
 	email: string;
 
 	constructor(obj: any) {
-		if (!obj.name || typeof obj.name !== "string")
-			throw "Nameは文字のみ入力できます";
-		if (!obj.email || typeof obj.email !== "string")
-			throw "Emailは文字のみ入力できます";
-
 		this.name = obj.name;
 		this.email = obj.email;
+	}
+
+	public validateInput() {
+		return validate(this);
 	}
 }

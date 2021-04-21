@@ -1,13 +1,17 @@
-import { User } from "../../entity/user";
+import { Expose, plainToClass } from "class-transformer";
+import { User } from "../../domain/user";
 
 export class UserResponse {
-  name: string;
-  email: string;
+	@Expose()
+	id: number;
 
-  static toViewModel(user: User): UserResponse {
-    return {
-      name: user.name,
-      email: user.email
-    };
-  }
+	@Expose()
+	name: string;
+
+	@Expose()
+	email: string;
+
+	static toViewModel(user: User): UserResponse {
+		return plainToClass(UserResponse, user, { excludeExtraneousValues: true });
+	}
 }

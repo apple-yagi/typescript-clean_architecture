@@ -1,9 +1,9 @@
 import { CreateUserDto } from "../../adapter/controller/dto/craete-user.dto";
-import { User } from "../../entity/user";
+import { User } from "../../domain/user";
 
 export abstract class IUserRepository {
-  FindAll: () => Promise<User[]>;
-  FindById: (id: number) => Promise<User>;
-  Create: (u: CreateUserDto) => Promise<User>;
-  Delete: (id: number) => Promise<number>;
+	FindAll: () => Promise<User[]>;
+	FindById: (id: number) => Promise<User>;
+	Create: (u: CreateUserDto) => Promise<User>;
+	Delete: (id: number) => Promise<number>;
 }
