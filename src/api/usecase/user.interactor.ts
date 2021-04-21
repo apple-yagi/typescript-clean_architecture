@@ -1,4 +1,5 @@
 import { CreateUserDto } from "../adapter/controller/dto/craete-user.dto";
+import { CustomError } from "../common/error/custom-error";
 import { IUserRepository } from "../infrastructure/interfaces/userRepository.interface";
 import { IUserInteractor } from "./interfaces/userInteractor.interface";
 
@@ -16,7 +17,7 @@ export class UserInteractor implements IUserInteractor {
 	async GetUserById(id: number) {
 		const findUser = await this.userRepository.FindById(id);
 
-		if (!findUser) throw `Not Found User by ${id}`;
+		if (!findUser) throw new CustomError(404, `Not Found User by ${id}`);
 
 		return findUser;
 	}
@@ -25,7 +26,10 @@ export class UserInteractor implements IUserInteractor {
 		return this.userRepository.Create(u);
 	}
 
-	Delete(id: number) {
+	async Delete(id: number) {
+		const foundUser = await this.userRepository.FindById(id);
+		if (!foundUser) throw new CustomError(404, `Not Found User by ${id}`);
+
 		return this.userRepository.Delete(id);
 	}
 }

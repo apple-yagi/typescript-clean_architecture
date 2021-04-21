@@ -39,9 +39,6 @@ export class PGUserRepository implements IUserRepository {
 	}
 
 	async Delete(id: number) {
-		const findUser = await this.FindById(id);
-		if (!findUser) throw `Not Found User by ${id}`;
-
 		await this.conn
 			.createQueryBuilder()
 			.delete()

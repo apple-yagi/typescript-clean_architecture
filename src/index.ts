@@ -1,4 +1,5 @@
 import * as express from "express";
+import { ErrorHandler } from "./api/adapter/middleware/error-handler.middleware";
 import { router } from "./api/infrastructure/router";
 const app: express.Express = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(
 );
 
 app.use(router);
+app.use(ErrorHandler);
 
 const port = process.env.PORT || 3000;
 
