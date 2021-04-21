@@ -10,23 +10,15 @@ export class PGUserRepository implements IUserRepository {
 		connection().then(c => (this.conn = c));
 	}
 
-	FindAll() {
-		console.log(
-			this.conn
-				.createQueryBuilder()
-				.select("user")
-				.from(UserEntity, "user")
-				.getSql()
-		);
-
+	FindAll(): Promise<UserEntity[]> {
 		return this.conn
 			.createQueryBuilder()
 			.select("user")
 			.from(UserEntity, "user")
-			.execute();
+			.getMany();
 	}
 
-	FindById(id: number) {
+	FindById(id: number): Promise<UserEntity> {
 		return this.conn
 			.createQueryBuilder()
 			.select("user")
@@ -43,19 +35,20 @@ export class PGUserRepository implements IUserRepository {
 			.values([user])
 			.execute();
 
-		console.log(`execute sql: ${insertResult.raw}`);
 		return insertResult.generatedMaps[0] as UserEntity;
 	}
 
 	async Delete(id: number) {
-		const deleteResult = await this.conn
+		const findUser = await this.FindById(id);
+		if (!findUser) throw `Not Found User by ${id}`;
+
+		await this.conn
 			.createQueryBuilder()
 			.delete()
 			.from(UserEntity)
 			.where("id = :id", { id: id })
 			.execute();
 
-		console.log(`execute sql: ${deleteResult.raw}`);
 		return id;
 	}
 }

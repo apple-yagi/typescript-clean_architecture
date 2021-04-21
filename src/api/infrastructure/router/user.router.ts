@@ -16,24 +16,20 @@ const userController = new UserController(
 	new UserInteractor(new PGUserRepository())
 );
 
-router.get("/", async (req, res) => {
-	const json = await userController.index();
-	res.json(json);
+router.get("/", (req, res) => {
+	return userController.index(req, res);
 });
 
-router.get("/:id", async (req, res) => {
-	const data = await userController.show(req);
-	res.json(data);
+router.get("/:id", (req, res) => {
+	return userController.show(req, res);
 });
 
-router.post("/", async (req, res) => {
-	const data = await userController.create(req);
-	res.json(data);
+router.post("/", (req, res) => {
+	return userController.create(req, res);
 });
 
-router.delete("/:id", async (req, res) => {
-	const data = await userController.delete(req);
-	res.json({ deletedId: data });
+router.delete("/:id", (req, res) => {
+	return userController.delete(req, res);
 });
 
 export const usersRouter = router;

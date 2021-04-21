@@ -14,6 +14,7 @@ export const connection = (): Promise<Connection> => {
 			process.cwd() +
 				"/src/api/infrastructure/database/postgres/entity/*.entity.ts"
 		],
-		synchronize: true
+		synchronize: isDev,
+		logging: isDev ? "all" : ["error"]
 	});
 };

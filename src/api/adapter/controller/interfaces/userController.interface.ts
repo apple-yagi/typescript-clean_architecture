@@ -1,9 +1,8 @@
-import { Context } from "../../interface/context";
-import { UserResponse } from "../../view-model/user.vm";
+import { Response } from "express";
 
 export abstract class IUserController {
-	index: () => Promise<UserResponse[]>;
-	show: (ctx: Context) => Promise<UserResponse>;
-	create: (ctx: Context) => Promise<UserResponse>;
-	delete: (ctx: Context) => Promise<number>;
+	index: (req: Express.Request, res: Express.Response) => Promise<Response>;
+	show: (req: Express.Request, res: Express.Response) => Promise<Response>;
+	create: (req: Express.Request, res: Express.Response) => Promise<Response>;
+	delete: (req: Express.Request, res: Express.Response) => Promise<Response>;
 }
