@@ -1,5 +1,5 @@
 import { Expose, plainToClass } from "class-transformer";
-import { User } from "../../domain/user";
+import { User } from "../../entity/user";
 
 export class UserResponse {
 	@Expose()

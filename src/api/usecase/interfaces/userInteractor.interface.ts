@@ -1,5 +1,5 @@
 import { CreateUserDto } from "../../adapter/controller/dto/craete-user.dto";
-import { User } from "../../domain/user";
+import { User } from "../../entity/user";
 
 export abstract class IUserInteractor {
 	ListUser: () => Promise<User[]>;

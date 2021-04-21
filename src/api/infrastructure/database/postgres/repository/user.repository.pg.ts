@@ -2,7 +2,7 @@ import { Connection } from "typeorm";
 import { connection } from "../connection";
 import { IUserRepository } from "../../../interfaces/userRepository.interface";
 import { CreateUserDto } from "../../../../adapter/controller/dto/craete-user.dto";
-import { UserEntity } from "../entity/user.entity";
+import { User } from "../../../../entity/user";
 
 export class PGUserRepository implements IUserRepository {
 	private conn: Connection;
@@ -10,19 +10,19 @@ export class PGUserRepository implements IUserRepository {
 		connection().then(c => (this.conn = c));
 	}
 
-	FindAll(): Promise<UserEntity[]> {
+	FindAll(): Promise<User[]> {
 		return this.conn
 			.createQueryBuilder()
 			.select("user")
-			.from(UserEntity, "user")
+			.from(User, "user")
 			.getMany();
 	}
 
-	FindById(id: number): Promise<UserEntity> {
+	FindById(id: number): Promise<User> {
 		return this.conn
 			.createQueryBuilder()
 			.select("user")
-			.from(UserEntity, "user")
+			.from(User, "user")
 			.where("user.id = :id", { id: id })
 			.getOne();
 	}
@@ -31,18 +31,18 @@ export class PGUserRepository implements IUserRepository {
 		const insertResult = await this.conn
 			.createQueryBuilder()
 			.insert()
-			.into(UserEntity)
+			.into(User)
 			.values([user])
 			.execute();
 
-		return insertResult.generatedMaps[0] as UserEntity;
+		return insertResult.generatedMaps[0] as User;
 	}
 
 	async Delete(id: number) {
 		await this.conn
 			.createQueryBuilder()
 			.delete()
-			.from(UserEntity)
+			.from(User)
 			.where("id = :id", { id: id })
 			.execute();
 

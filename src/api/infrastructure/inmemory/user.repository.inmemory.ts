@@ -1,5 +1,5 @@
 import { IUserRepository } from "../interfaces/userRepository.interface";
-import { User } from "../../domain/user";
+import { User } from "../../entity/user";
 import { CreateUserDto } from "../../adapter/controller/dto/craete-user.dto";
 
 export class InmemoryUserRepository implements IUserRepository {

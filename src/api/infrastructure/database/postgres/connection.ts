@@ -11,10 +11,7 @@ export const connection = (): Promise<Connection> => {
 			username: process.env.POSTGRES_USER || "postgres",
 			password: process.env.POSTGRES_PASSWORD || "password",
 			database: process.env.POSTGRES_DB || "postgres",
-			entities: [
-				process.cwd() +
-					"/src/api/infrastructure/database/postgres/entity/*.entity.ts"
-			],
+			entities: [process.cwd() + "/src/api/entity/*.ts"],
 			synchronize: isDev,
 			logging: isDev ? "all" : ["error"]
 		});
