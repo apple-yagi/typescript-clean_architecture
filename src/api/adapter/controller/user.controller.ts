@@ -60,7 +60,7 @@ export class UserController implements IUserController {
 			const createdUser = await this.userInteractor.Create(createUserDto);
 			return res
 				.status(201)
-				.json({ statusCode: 204, data: UserResponse.toViewModel(createdUser) });
+				.json({ statusCode: 201, data: UserResponse.toViewModel(createdUser) });
 		} catch (err) {
 			next(err);
 		}
